@@ -1,0 +1,23 @@
+<h1>Edabit</h1>
+<a href="{% url 'sync_db' %}">Sync Challenges</a>
+
+<table style="border: 1px solid black">
+	 <tr>
+      <th>SL NO.</th>
+      <th>Title</th>
+		<th>Url</th>
+		<th>Desc</th>
+		<th>Tags</th>
+		<th>Difficulty</th>
+    </tr>
+{% for challenge in object_list %}
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{challenge.title}}</td>
+      	<td>{{challenge.url}}</td>
+		<td>{{challenge.desc}}</td>
+		<td>{{challenge.tags}}</td>
+		<td>{{challenge.difficulty}}</td>
+    </tr>
+{% endfor %}
+</table>
