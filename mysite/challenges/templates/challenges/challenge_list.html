@@ -16,7 +16,7 @@
       <tr>
         <td>{{forloop.counter}}</td>
         <td><a href="{% url 'challenge-detail' challenge.id %}">{{challenge.title}}</a></td>
-        <td>{{challenge.c_id}} <a href="{% url 'sync_challenge' %}?c={{challenge.c_id}}">sync</a></td>        
+        <td>{{challenge.c_id}}</td>        
         <td>{{challenge.tags}}</td>
         <td>{{challenge.difficulty}}</td>
         <td>{{challenge.desc}}</td>
