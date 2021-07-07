@@ -1,11 +1,15 @@
 from bs4 import BeautifulSoup
-from django.shortcuts import redirect
+from django.shortcuts import redirect, reverse
 from django.views import generic
 from django.views import View
 
 from .models import Challenge, Solution
 
 class ChallengesListView(generic.list.ListView):
+    model = Challenge
+
+
+class ChallengeDetailView(generic.detail.DetailView):
     model = Challenge
 
 def sync_db(request):
@@ -56,33 +60,32 @@ def sync_db(request):
 
 class SyncChallengeView(View):
     def get_soup(self,fn):
-        fp = open(f'static_htmls/{fn}')
+        fp = open(f'static_htmls/challenge/{fn}')
         return BeautifulSoup(fp.read(), 'html.parser')
     
-    def parse_instruction(self, c_id):
+    def parse_instruction(self, challenge):
         # Parse Instruction
-        soup = self.get_soup(f'{c_id}.html')
+        soup = self.get_soup(f'{challenge.c_id}.html')
         # remove dropdown: python, javascript... etc
         # soup.find('div',{"class": "dropdown"}).decompose() #  attrs={'style':'font-size: 1.05rem;margin-bottom:8px;margin-top:-10px;'}).decompose()
         instructions=soup.find_all("div", {"class": "instructions"})
         if instructions:
-            challenge=Challenge.objects.get(c_id=c_id)
+            # challenge=Challenge.objects.get(c_id=c_id)
             challenge.instructions= str(instructions[0])
             challenge.save()
 
-    def parse_solution(self, c_id):
+    def parse_solution(self, challenge):
         # Parse Solution
-        soup = self.get_soup(f'{c_id}_solution.html')
+        soup = self.get_soup(f'{challenge.c_id}_solution.html')
         solutions = [
-            Solution.objects.get_or_create(challenge=Challenge.objects.get(c_id=c_id), text=sol.text) 
+            Solution.objects.get_or_create(challenge=challenge, text=sol.text) 
             for sol in soup.find_all("div", {"class": "CodeMirror-code"})
         ]
-        print(Solution.objects.filter(challenge=Challenge.objects.get(c_id=c_id)).count())
+        print(Solution.objects.filter(challenge=challenge).count())
 
     def get(self, request):
-
-        challenge_id = request.GET["c"]
-        self.parse_instruction(challenge_id)
-        self.parse_solution(challenge_id)
-        return redirect('home')
+        challenge = Challenge.objects.get(c_id=request.GET["c"])
+        self.parse_instruction(challenge)
+        # self.parse_solution(challenge)
+        return redirect(reverse('challenge-detail', args=[challenge.id])) # redirect('challenge-detail', args=(challenge.id,))
     

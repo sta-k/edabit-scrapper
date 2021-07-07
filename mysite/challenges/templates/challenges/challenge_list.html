@@ -1,11 +1,11 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  
 </head>
 <body>
   <a href="{% url 'sync_db' %}">Sync Challenges</a> | 
@@ -23,12 +23,12 @@
       <tr>
         <td>{{forloop.counter}}</td>
         <td>{{challenge.title}}</td>
-          <td>{{challenge.c_id}}</td>
+          <td><a href="{% url 'sync_challenge' %}?c={{challenge.c_id}}">{{challenge.c_id}}</a></td>
       <td>{{challenge.desc}}</td>
       <td>{{challenge.tags}}</td>
       <td>{{challenge.difficulty}}</td>
       </tr>
-      {% if challenge.instructions %}<tr><td colspan="6">{{challenge.instructions |safe}}</td>{% endif %}
+      
   {% endfor %}
   </table>
 </body>
