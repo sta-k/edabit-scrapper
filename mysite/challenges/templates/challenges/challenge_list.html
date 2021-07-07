@@ -1,23 +1,37 @@
-<h1>Edabit</h1>
-<a href="{% url 'sync_db' %}">Sync Challenges</a> | 
-<a href="{% url 'sync_challenge' %}">ARr5tA458o2tC9FTN</a>
-<table style="border: 1px solid black">
-	 <tr>
-      <th>SL NO.</th>
-      <th>Title</th>
-		<th>Url</th>
-		<th>Desc</th>
-		<th>Tags</th>
-		<th>Difficulty</th>
-    </tr>
-{% for challenge in object_list %}
-    <tr>
-      <td>{{forloop.counter}}</td>
-      <td>{{challenge.title}}</td>
-      	<td>{{challenge.url}}</td>
-		<td>{{challenge.desc}}</td>
-		<td>{{challenge.tags}}</td>
-		<td>{{challenge.difficulty}}</td>
-    </tr>
-{% endfor %}
-</table>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+  <a href="{% url 'sync_db' %}">Sync Challenges</a> | 
+  <a href="{% url 'sync_challenge' %}?c=rZToTkR5eB9Zn4zLh">rZToTkR5eB9Zn4zLh</a>
+  <table>
+     <tr>
+        <th>SL NO.</th>
+        <th>Title</th>
+      <th>Url</th>
+      <th>Desc</th>
+      <th>Tags</th>
+      <th>Difficulty</th>
+      </tr>
+  {% for challenge in object_list %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{challenge.title}}</td>
+          <td>{{challenge.c_id}}</td>
+      <td>{{challenge.desc}}</td>
+      <td>{{challenge.tags}}</td>
+      <td>{{challenge.difficulty}}</td>
+      </tr>
+      {% if challenge.instructions %}<tr><td colspan="6">{{challenge.instructions |safe}}</td>{% endif %}
+  {% endfor %}
+  </table>
+</body>
+</html>
+
+

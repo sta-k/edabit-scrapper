@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.ChallengesListView.as_view(), name='home'),
     path('sync_db/', views.sync_db, name='sync_db'),
-    path('sync_challenge/', views.sync_challenge, name='sync_challenge')
+    path('sync_challenge/', views.SyncChallengeView.as_view(), name='sync_challenge')
 ]

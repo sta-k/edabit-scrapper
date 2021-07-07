@@ -1,0 +1,47 @@
+.instructions{
+    font-family:"Lato", "Helvetica Neue", "Arial", "Helvetica", "sans-serif";
+    color:#161C20;
+    padding:17px
+}
+.instructions p{
+    line-height:1.6
+}
+.instructions ul li{
+    padding:3px 0px
+}
+.instructions ol li{
+    padding:3px 0px
+}
+.instructions pre{
+    background-color:#E8E8E8;
+    border-left:3px solid #2DB84B;
+    font-family:"monospace", 'Menlo', 'Consolas';
+    padding:20px
+}
+:not(pre)>code{
+    background-color:#E8E8E8;
+    border:1px solid #BCBEC0;
+    padding:2px;
+    font-family:"monospace", 'Menlo', 'Consolas';
+    font-size:1rem
+}
+.instructions table{
+    border-collapse:collapse;
+    margin-bottom:10px
+}
+.instructions table,th,td{
+    border:1px solid #e0e1e2;
+    padding:5px
+}
+.instructions-header:hover .suggest-tag-icon{
+    display:inline-block;
+    vertical-align:middle
+}
+.grey-segment {
+    min-height: 400px;
+    position: relative;
+    background: #f7f7f7;
+    margin: 1rem 0em;
+    border: 1px solid #e0e1e2;
+}
+.dropdown {display:none}

@@ -1,10 +1,9 @@
 from bs4 import BeautifulSoup
 from django.shortcuts import redirect
 from django.views import generic
+from django.views import View
 
-from .models import Challenge
-
-
+from .models import Challenge, Solution
 
 class ChallengesListView(generic.list.ListView):
     model = Challenge
@@ -22,7 +21,7 @@ def sync_db(request):
             items = challenge.find_all(['div','h3'])
             challenge_data = {
                 'url':challenge_url,
-                'c_id':challenge_url.strip('/challenge/'),
+                'c_id':challenge_url.replace('/challenge/',''),
                 'lang': html_file.split('-')[1].split('.')[0]
             } # c_id,lang,title,url,desc,tags,difficulty
             if Challenge.objects.filter(c_id=challenge_data['c_id'], lang=challenge_data['lang']):
@@ -34,7 +33,7 @@ def sync_db(request):
                     challenge_data['title'] = txt.string
                     print(txt.string)
                     print('='*20)
-                    print('ID:',challenge_url.strip('/challenge/'))
+                    print('ID:',challenge_url.replace('/challenge/',''))
                 if i==1: 
                     challenge_data['desc'] = txt.string
                     print('Desc:',txt.string[:20])
@@ -54,12 +53,36 @@ def sync_db(request):
     print(f'Total challenges: {n}')
     return redirect('home')
 
-def sync_challenge(request):
 
-    fp = open('static_htmls/ARr5tA458o2tC9FTN.html')
-    soup = BeautifulSoup(fp.read(), 'html.parser')
-    for challenge in soup.find_all("div", {"class": "rc-tabs-tabpane"}):
-        print(challenge)
+class SyncChallengeView(View):
+    def get_soup(self,fn):
+        fp = open(f'static_htmls/{fn}')
+        return BeautifulSoup(fp.read(), 'html.parser')
+    
+    def parse_instruction(self, c_id):
+        # Parse Instruction
+        soup = self.get_soup(f'{c_id}.html')
+        # remove dropdown: python, javascript... etc
+        # soup.find('div',{"class": "dropdown"}).decompose() #  attrs={'style':'font-size: 1.05rem;margin-bottom:8px;margin-top:-10px;'}).decompose()
+        instructions=soup.find_all("div", {"class": "instructions"})
+        if instructions:
+            challenge=Challenge.objects.get(c_id=c_id)
+            challenge.instructions= str(instructions[0])
+            challenge.save()
 
-    return redirect('home')
+    def parse_solution(self, c_id):
+        # Parse Solution
+        soup = self.get_soup(f'{c_id}_solution.html')
+        solutions = [
+            Solution.objects.get_or_create(challenge=Challenge.objects.get(c_id=c_id), text=sol.text) 
+            for sol in soup.find_all("div", {"class": "CodeMirror-code"})
+        ]
+        print(Solution.objects.filter(challenge=Challenge.objects.get(c_id=c_id)).count())
+
+    def get(self, request):
+
+        challenge_id = request.GET["c"]
+        self.parse_instruction(challenge_id)
+        self.parse_solution(challenge_id)
+        return redirect('home')
     
