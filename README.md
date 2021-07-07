@@ -8,7 +8,6 @@
 
 ## scrap edabit
 
-    cd htmlfiles
     python scrap.py
 
 
