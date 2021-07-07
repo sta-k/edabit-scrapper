@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Edabit{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	{% block css %}
+    {% endblock %}
+</head>
+<body>
+	<div class="container my-4">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-sm-12">
+        	<a class="btn btn-primary" href="{% url 'home' %}">Home</a> | <a class="btn btn-info" href="{% url 'sync_db' %}">Sync Challenges</a><hr>
+        	{% block content %}
+            {% endblock %}
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+  </body>
+</html>

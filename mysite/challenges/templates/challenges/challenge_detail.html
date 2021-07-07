@@ -1,23 +1,18 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-</head>
-<body>
-	<h1>{{ object.id }}</h1>
-	<ul>
-        <li>{{object.title}}</li>
-          <li><a href="{% url 'sync_challenge' %}?c={{object.c_id}}">{{object.c_id}}</a></li>
-      <li>{{object.desc}}</li>
-      <li>{{object.tags}}</li>
-      <li>{{object.difficulty}}</li>
-  </ul>
-	<div>{{challenge.instructions |safe}}</div>
-	
-</body>
-</html>
+{% block content %}
+  <p>{{object.title}}  <span class="badge badge-success">{{object.difficulty}}</span></p>
+  <p class="text-muted"><small>{{object.c_id}} {{object.tags}}</small></p>
+  {{object.instructions |safe}}
+
+  <div class="card">
+  	<div class="card-header">Solutions</div>
+  	<div class="card-body">
+  		{% for solution in object.solution_set.all %}
+		  	<pre><code> {{solution.text}}</code></pre>
+		  	<hr>
+		  {% endfor %}
+  	</div>
+  </div>
+  
+{% endblock %}

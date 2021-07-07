@@ -1,37 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  
-</head>
-<body>
-  <a href="{% url 'sync_db' %}">Sync Challenges</a> | 
-  <a href="{% url 'sync_challenge' %}?c=rZToTkR5eB9Zn4zLh">rZToTkR5eB9Zn4zLh</a>
-  <table>
-     <tr>
-        <th>SL NO.</th>
-        <th>Title</th>
-      <th>Url</th>
-      <th>Desc</th>
-      <th>Tags</th>
-      <th>Difficulty</th>
-      </tr>
-  {% for challenge in object_list %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'datatables/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'datatables/responsive.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block content %}
+  <table class="table table-sm table-bordered dt-responsive nowrap compact" style="width:100%" id="tb_challengelist">
+    <thead>
+     <tr><th>SL NO.</th> <th>Title</th> <th>Url</th>  <th>Tags</th> <th>Difficulty</th><th>Desc</th></tr>
+    </thead>
+    <tbody>
+     {% for challenge in object_list %}
       <tr>
         <td>{{forloop.counter}}</td>
-        <td>{{challenge.title}}</td>
-          <td><a href="{% url 'sync_challenge' %}?c={{challenge.c_id}}">{{challenge.c_id}}</a></td>
-      <td>{{challenge.desc}}</td>
-      <td>{{challenge.tags}}</td>
-      <td>{{challenge.difficulty}}</td>
+        <td><a href="{% url 'challenge-detail' challenge.id %}">{{challenge.title}}</a></td>
+        <td>{{challenge.c_id}} <a href="{% url 'sync_challenge' %}?c={{challenge.c_id}}">sync</a></td>        
+        <td>{{challenge.tags}}</td>
+        <td>{{challenge.difficulty}}</td>
+        <td>{{challenge.desc}}</td>
       </tr>
-      
-  {% endfor %}
+     {% endfor %}
+     </tbody>
   </table>
-</body>
-</html>
+{% endblock %}
 
 
+{% block js %}
+<script src="{% static 'datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'datatables/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'datatables/responsive.bootstrap4.min.js' %}"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#tb_challengelist').DataTable({
+      "pageLength": 10,
+      columnDefs: [
+        {
+          render: function (data, type, full, meta) {
+            return "<div style='white-space:normal; width:90%;'>" + data + "</div>";
+          },
+          targets: 5
+        }
+     ]
+    });
+});
+</script>
+
+{% endblock %}
