@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.views import View
 from django.conf import settings
+from ajax_datatable.views import AjaxDatatableView
 
 from .models import Challenge, Solution
 
@@ -84,3 +85,20 @@ class SyncChallenge:
         ]
 
         self.filessynced.append(challenge.c_id)
+
+
+class ChallengesAjaxDatatableView(AjaxDatatableView):
+    model = Challenge
+    initial_order = [["title", "asc"], ]
+
+    column_defs = [
+        AjaxDatatableView.render_row_tools_column_def(),
+        {'name': 'id', 'visible': False, },
+        {'name': 'title', 'visible': True },
+        {'name': 'c_id', 'visible': True, },
+        {'name': 'difficulty', 'visible': True, },
+        {'name': 'desc', 'visible': False},
+        {'name': 'lang', 'visible': False, },
+        {'name': 'tags', 'visible': False, },        
+        # {'name': 'app_label', 'foreign_field': 'content_type__app_label', 'visible': True, },
+    ]

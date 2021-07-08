@@ -2,12 +2,14 @@
 {% load static %}
 
 {% block css %}
+<link href="{% static 'ajax_datatable/css/style.css' %}" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="{% static 'datatables/dataTables.bootstrap4.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'datatables/responsive.bootstrap4.min.css' %}">
+
 {% endblock %}
 
 {% block content %}
-  <table class="table table-sm table-bordered dt-responsive nowrap compact" style="width:100%" id="tb_challengelist">
+  <!-- <table class="table table-sm table-bordered dt-responsive nowrap compact" style="width:100%" id="tb_challengelist">
     <thead>
      <tr><th>SL NO.</th> <th>Title</th> <th>Difficulty</th><th>Url</th>  <th>Tags</th> <th>Desc</th></tr>
     </thead>
@@ -23,11 +25,18 @@
       </tr>
      {% endfor %}
      </tbody>
-  </table>
+  </table> -->
+
+<div class="table-responsive">
+    <table id="datatable_challenges" width="100%" class="table table-striped table-bordered dt-responsive compact">
+    </table>
+</div>
+
 {% endblock %}
 
 
 {% block js %}
+<script type="text/javascript" src="{% static 'ajax_datatable/js/utils.js' %}"></script>
 <script src="{% static 'datatables/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'datatables/dataTables.bootstrap4.min.js' %}"></script>
 <script src="{% static 'datatables/dataTables.responsive.min.js' %}"></script>
@@ -35,18 +44,31 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#tb_challengelist').DataTable({
-      "pageLength": 10,
-      columnDefs: [
-        {
-          render: function (data, type, full, meta) {
-            return "<div style='white-space:normal; width:90%;'>" + data + "</div>";
-          },
-          targets: 5
-        }
-     ]
-    });
+    // $('#tb_challengelist').DataTable({
+    //   "pageLength": 10,
+    //   columnDefs: [
+    //     {
+    //       render: function (data, type, full, meta) {
+    //         return "<div style='white-space:normal; width:90%;'>" + data + "</div>";
+    //       },
+    //       targets: 5
+    //     }
+    //  ]
+    // });
+
+    AjaxDatatableViewUtils.initialize_table(
+      $('#datatable_challenges'),
+      "{% url 'ajax_datatable_challenges' %}",
+      {
+          // extra_options (example)
+          processing: false,
+          autoWidth: false,
+          full_row_select: true,
+          scrollX: false
+      },
+    );
 });
 </script>
+
 
 {% endblock %}

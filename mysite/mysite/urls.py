@@ -15,12 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
 from challenges import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.ChallengesListView.as_view(), name='home'),
+    path('', TemplateView.as_view(template_name="challenges/challenge_list.html"), name='home'),
+    # path('', views.ChallengesListView.as_view(), name='home'),
     path('sync_db/', views.sync_db, name='sync_db'),
     # path('sync_challenge/', views.SyncChallengeView.as_view(), name='sync_challenge'),
     path('<int:pk>/', views.ChallengeDetailView.as_view(), name='challenge-detail'),
+    path('ajax_datatable/challenges/', views.ChallengesAjaxDatatableView.as_view(), name="ajax_datatable_challenges"),
+    # path('ajax_datatable/permissions/', views.PermissionAjaxDatatableView.as_view(), name="ajax_datatable_permissions"),
 ]

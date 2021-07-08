@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'ajax_datatable', # https://github.com/morlandi/django-ajax-datatable
     'challenges',
 ]
 
