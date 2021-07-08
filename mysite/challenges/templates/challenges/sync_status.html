@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card success">
+    <div class="card-header">Files Synced:</div>
+    <div class="card-body"><ol>
+      {% for item in success %}
+        <li>{{item}}</li>
+      {% endfor %}</ol>
+    </div>
+  </div>
+  <hr>
+  <div class="card">
+  	<div class="card-header">Files Not found:</div>
+  	<div class="card-body">
+      <ol>
+  		{% for item in errors %}
+		  	<li>{{item}}</li>
+		  {% endfor %}
+      </ol>
+  	</div>
+  </div>
+  
+{% endblock %}

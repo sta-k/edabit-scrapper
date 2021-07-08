@@ -9,16 +9,16 @@
 {% block content %}
   <table class="table table-sm table-bordered dt-responsive nowrap compact" style="width:100%" id="tb_challengelist">
     <thead>
-     <tr><th>SL NO.</th> <th>Title</th> <th>Url</th>  <th>Tags</th> <th>Difficulty</th><th>Desc</th></tr>
+     <tr><th>SL NO.</th> <th>Title</th> <th>Difficulty</th><th>Url</th>  <th>Tags</th> <th>Desc</th></tr>
     </thead>
     <tbody>
      {% for challenge in object_list %}
       <tr>
         <td>{{forloop.counter}}</td>
         <td><a href="{% url 'challenge-detail' challenge.id %}">{{challenge.title}}</a></td>
+        <td>{{challenge.difficulty}}</td>
         <td>{{challenge.c_id}}</td>        
         <td>{{challenge.tags}}</td>
-        <td>{{challenge.difficulty}}</td>
         <td>{{challenge.desc}}</td>
       </tr>
      {% endfor %}
