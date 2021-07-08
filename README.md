@@ -8,8 +8,13 @@
 
 ## scrap edabit
 
-    python scrap.py
+to scrap instructions and solutions, update `challenges` list and run:
 
+    python scrap.py all
+
+to scrap ids, run:
+	
+	python scrap.py ids
 
 ## django site
 
