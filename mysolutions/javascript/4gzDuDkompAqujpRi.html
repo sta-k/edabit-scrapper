@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<h3>Add up the Numbers from a Single Number</h3>
+<p>Create a function that takes a number as an argument. Add up all the numbers from 1 to the number you passed 
+    to the function.&nbsp;For example, if the input is 4 then your function should return 10 because 1 + 2 + 3 + 4 = 10.</p>
+
+<pre><code>
+addUp(4) ➞ 10
+
+addUp(13) ➞ 91
+
+addUp(600) ➞ 180300
+</code></pre>
+
+<p>Note: Expect any positive number between 1 and 1000.</p>
+
+
+<div class="solutions">
+    <pre><code>
+    function addUp(num) {
+        return (num * (num + 1))/2;
+      }
+    </code></pre>
+
+    <pre><code>
+    function addUp(num) {
+        if (num === 1) return 1;
+        return num + addUp(num - 1);
+      }</code></pre>
+<pre><code>
+    let addUp = n => (n * (n + 1)) / 2</code></pre>
+<pre><code>
+    function addUp(num) {
+        return (!num) ? 0 : num + addUp(num-1)
+    }</code></pre>
+<pre><code>
+    const addUp = n => Array
+	.from({ length: n + 1 }, (v, i) => i)
+	.reduce((a, b) => a + b);</code></pre>
+<pre><code>
+    addUp=n=>n*++n/2</code></pre>
+<pre><code>
+    function addUp(num) {
+        var a =0;
+        for(var i =num; i > 0; i--){
+          a+= i;
+        }
+        return a;
+      }</code></pre>
+
+    
+
+</div>
+
+<script>
+    function addUp(n){
+        let s=0;
+        for (let i=1; i<=n; i++) {
+            s=s+i;
+        }
+        return s;
+    }
+    console.log(addUp(4));
+    console.log(addUp(13));
+    console.log(addUp(600));
+</script>
+</body>
+</html>
