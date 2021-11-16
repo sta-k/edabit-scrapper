@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<h3>Find Number of Digits in Number</h3>
+<p>Create a function that will return an integer number corresponding to the amount of digits in the given integer num.</p>
+
+<pre><code>
+    num_of_digits(1000) ➞ 4
+
+    num_of_digits(12) ➞ 2
+    
+    num_of_digits(1305981031) ➞ 10
+    
+    num_of_digits(0) ➞ 1
+</code></pre>
+
+<p>Note: Try to solve this challenge without using strings!</p>
+
+
+<div class="solutions">
+
+<pre><code>
+    1function num_of_digits(num) {2  let digits = 0;3  if (num<0) num=num*-1;4  if (num==0) digits++5  while(num>1) {6    num=num/10;7    digits++;8  }9  if(num==1) digits++;10  return digits;11}
+    </code></pre>
+    <pre><code>
+    const num_of_digits = n => n ? ~~Math.log10(Math.abs(n)) + 1 : 1;
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return `${num}`.match(/\d/g).length;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  num = Math.abs(num)  let arr = []  if (num == 0){    return 1  }else{  while(num>0){    arr.push(num % 10)    num = parseInt(num / 10)  }  console.log(arr)  return arr.length   }  }
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  let digits = 0;  if (num<0) num=num*-1;  if (num==0) digits++  while(num>1) {    num=num/10;    digits++;  }  if(num==1) digits++;  return digits;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  var s = num.toString();  if(s.includes("-")){  return s.length-1;  }else{    return s.length;  }}
+    </code></pre>
+    <pre><code>
+    const num_of_digits = n => (''+Math.abs(n)).length;
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return Math.abs(num).toString().length;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {    if(num < 0){        num = num * -1;    }    return num.toString().length;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  let number = Math.ceil(Math.log10(Math.abs(num)));  return num===0 ? 1 : num%10===0 ? number+1 : number;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  let  arrNums = num.toString().split('');  let  counter = 0;  arrNums.forEach(char => {    if(Number.isInteger(Number(char))) {counter++}  })  return counter;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  var x = num;  num = num.toString().split("").length;  if (x.toString().charAt(0) == "-")    {      return num -1;    }  else    {      return num;    }}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  let n = Math.abs(num), i = 1;  while ((n /= 10)  >= 1) { i++; }  return i;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return String(Math.abs(num)).split('').length}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return (num)?Math.floor(Math.log10(Math.abs(num))) + 1:1;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {    return num.toString().match(/\d/g).length}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return num.toString().split("-").join("").length}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  var str = num.toString()    var arr = Array.from(str)    var count  = 0    for(let i of arr){        if(!isNaN(i))count ++    }    return count​}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return num.toString().match(/\d/g).length;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {    let positiveNum = Math.sqrt(num ** 2);    let length = 0;    while ( positiveNum > 9) {        positiveNum /= 10;        length++;    }    return length + 1;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  var i = 1;  while(Math.abs(num /= 10) >= 1)  {     i++ ;  }  return i;}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return (num.toString().replace('-','').length);}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return String(Math.abs(num)).length;  }
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  num = Math.abs(num);  if (num / 10 < 1) {return 1};  return 1 + num_of_digits(num / 10);}
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {return num.toString().match(/\d/g).length}
+    </code></pre>
+    <pre><code>
+    const num_of_digits = (num) =>    Math.max(Math.floor(Math.log10(Math.abs(num))), 0) + 1;
+    </code></pre>
+    <pre><code>
+    function num_of_digits(num) {  return Math.abs(num).toString().length}
+    </code></pre>
+    <pre><code>
+     </code></pre>
+
+
+
+</div>
+
+<script>
+    function addUp(n){
+        let s=0;
+        for (let i=1; i<=n; i++) {
+            s=s+i;
+        }
+        return s;
+    }
+    console.log(addUp(4));
+    console.log(addUp(13));
+    console.log(addUp(600));
+
+    // Test.assertEquals(num_of_digits(13124), 5)Test.assertEquals(num_of_digits(0), 1)Test.assertEquals(num_of_digits(-12381428), 8)Test.assertEquals(num_of_digits(12), 2)Test.assertEquals(num_of_digits(42), 2)Test.assertEquals(num_of_digits(1000), 4)Test.assertEquals(num_of_digits(136), 3)Test.assertEquals(num_of_digits(1000000000), 10)Test.assertEquals(num_of_digits(2147483647), 10)Test.assertEquals(num_of_digits(-2147483647), 10)
+   
+</script>
+</body>
+</html>
