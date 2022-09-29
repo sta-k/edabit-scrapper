@@ -1,5 +1,13 @@
 # Edabit Scrapper
 
+# geckodriver
+
+https://github.com/mozilla/geckodriver/releases
+
+download and extract the file and copy it to 
+	
+	`sudo mv geckodriver /usr/local/bin/`
+
 ## install dependencies
 
 	python3 -m venv env

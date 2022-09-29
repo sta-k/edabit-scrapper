@@ -115,16 +115,31 @@
 </div>
 
 <script>
-    function addUp(n){
-        let s=0;
-        for (let i=1; i<=n; i++) {
-            s=s+i;
+    function num_of_digits(n) {
+
+        let digits = 0;
+        if (n<0) n=n*-1;
+        if (n==0) digits++
+
+        const i = n;
+        while(n>1) {
+            n=n/10;
+            digits++;
+            console.log(n);
         }
-        return s;
-    }
-    console.log(addUp(4));
-    console.log(addUp(13));
-    console.log(addUp(600));
+        if(n==1) digits++;
+        console.log(`${i}: ${digits}`);
+
+        }
+        num_of_digits(100);
+        num_of_digits(1000);
+        num_of_digits(12);
+        num_of_digits(1305981031) ;
+        num_of_digits(0);
+
+
+        num_of_digits(0);
+        num_of_digits(-12381428);
 
     // Test.assertEquals(num_of_digits(13124), 5)Test.assertEquals(num_of_digits(0), 1)Test.assertEquals(num_of_digits(-12381428), 8)Test.assertEquals(num_of_digits(12), 2)Test.assertEquals(num_of_digits(42), 2)Test.assertEquals(num_of_digits(1000), 4)Test.assertEquals(num_of_digits(136), 3)Test.assertEquals(num_of_digits(1000000000), 10)Test.assertEquals(num_of_digits(2147483647), 10)Test.assertEquals(num_of_digits(-2147483647), 10)
    
